@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 
 namespace ContactBook
 {
@@ -18,6 +19,15 @@ namespace ContactBook
             this.lastName = lastName;
             this.contactNumber = contactNumber;
         }
+
+        //WOP
+        //public bool checkNameFormating(string name )
+        //{
+        //    string namePattern = "[a-zA-Z]{3,}";
+        //    bool isFirstNameMatchPattern = Regex.IsMatch(name, namePattern);
+        //    if (isFirstNameMatchPattern) return true;
+        //    return false;
+        //}
 
     }
 }
