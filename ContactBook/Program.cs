@@ -23,12 +23,49 @@
                 {
                     case 1:
                         Contact contact1 = new Contact(String.Empty, String.Empty, String.Empty);
-                        Console.WriteLine("Imput first name.");
-                        contact1.firstName = Console.ReadLine().ToUpper();
-                        Console.WriteLine("Imput last name.");
-                        contact1.lastName = Console.ReadLine().ToUpper();
-                        Console.WriteLine("Imput phone number in format XXX-XXX-XXX");
-                        contact1.contactNumber = Console.ReadLine();
+                        string userImput;
+
+                        while(contact1.firstName == String.Empty)
+                        {
+                            Console.WriteLine("Imput first name.");
+                            userImput = Console.ReadLine();
+                            if(contact1.checkNameFormating(userImput) == true)
+                            {
+                                contact1.firstName = userImput;
+                            }
+                            else
+                            {
+                                Console.WriteLine("First name must be at least three characters long.");
+                            }
+                        }
+
+                        while (contact1.lastName == String.Empty)
+                        {
+                            Console.WriteLine("Imput last name.");
+                            userImput = Console.ReadLine();
+                            if (contact1.checkNameFormating(userImput) == true)
+                            {
+                                contact1.lastName = userImput;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Last name must be at least three characters long.");
+                            }
+                        }
+
+                        while (contact1.contactNumber == String.Empty)
+                        {
+                            Console.WriteLine("Imput phone number in format XXX-XXX-XXX");
+                            userImput = Console.ReadLine();
+                            if (contact1.checkPhoneNumberFormating(userImput) == true)
+                            {
+                                contact1.contactNumber = userImput;
+                            }
+                            else
+                            {
+                                Console.WriteLine("Phone number must be in format XXX-XXX-XXX.");
+                            }
+                        }
                         currentContact.AddContact(contact1, contactBookDictionary);
                         break;
 
