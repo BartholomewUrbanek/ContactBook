@@ -16,7 +16,7 @@
 
             while (menuControl != true)
             {
-                Console.WriteLine("\n Choose option: \n 1.Add new contact to book. \n 2.Delete contact from book. \n 3.Display all contacts. \n 4.Exit.");
+                Console.WriteLine("\n Choose option: \n 1.Add new contact to book. \n 2.Delete contact from book. \n 3.Display all contacts. \n 4.Search for contact.  \n 5.Exit.");
 
                 int menuChoice = int.Parse(Console.ReadLine());
 
@@ -30,12 +30,12 @@
                         optionController.DeleteContact();
                         break;
                     case 3:
-                        foreach (KeyValuePair<string, Contact> entry in dictionary)
-                        {
-                            Console.WriteLine($"{ entry.Key} {entry.Value.firstName} {entry.Value.lastName}");
-                        }
+                        optionController.DisplayAllContacts();
                         break;
                     case 4:
+                        optionController.DisplayByName();
+                        break;
+                    case 5:
                         fileHandler.saveToFile(phoneBookPatch, dictionary);
                         menuControl = true;
                         break;

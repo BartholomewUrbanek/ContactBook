@@ -8,7 +8,7 @@ namespace ContactBook
 {
     internal class ContactBook
     {
-        private Dictionary<string,Contact> contactBookDictionary;
+        public Dictionary<string,Contact> contactBookDictionary;
         public ContactBook(Dictionary<string,Contact> contactBookDictionary)
         {
             this.contactBookDictionary = contactBookDictionary;
