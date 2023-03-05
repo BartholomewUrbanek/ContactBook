@@ -18,7 +18,7 @@
             while (newContact.firstName == String.Empty)
             {
                 Console.WriteLine("Imput first name.");
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine() ?? String.Empty;
                 if (contactValidator.isNameValid(userInput) == true)
                 {
                     newContact.firstName = userInput;
@@ -32,7 +32,7 @@
             while (newContact.lastName == String.Empty)
             {
                 Console.WriteLine("Imput last name.");
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine() ?? String.Empty;
                 if (contactValidator.isNameValid(userInput) == true)
                 {
                     newContact.lastName = userInput;
@@ -46,7 +46,7 @@
             while (newContact.contactNumber == String.Empty)
             {
                 Console.WriteLine("Imput phone number in format XXX-XXX-XXX");
-                userInput = Console.ReadLine();
+                userInput = Console.ReadLine() ?? String.Empty;
                 if (contactValidator.isPhoneNumberValid(userInput) == true)
                 {
                     newContact.contactNumber = userInput;
@@ -62,11 +62,19 @@
         public void DeleteContact()
         {
             Console.WriteLine("Imput number to delete from the book.");
-            string numberToDelete = Console.ReadLine();
-            var kvp = new KeyValuePair<string, Contact>(numberToDelete, contactBook.contactBookDictionary.GetValueOrDefault(numberToDelete));
-            Console.WriteLine($"\n\nAre you sure you want to delete following contact? [Y/N] \n{kvp.Key} {kvp.Value.firstName} {kvp.Value.lastName}");
-            string userInput = Console.ReadLine().ToLower();
-            if (userInput == "y") contactBook.DeleteContact(numberToDelete);
+            string numberToDelete = Console.ReadLine() ?? String.Empty;
+            
+            if (contactBook.contactBookDictionary.ContainsKey(numberToDelete))
+            {
+                var kvp = new KeyValuePair<string, Contact>(numberToDelete, contactBook.contactBookDictionary.GetValueOrDefault(numberToDelete));
+                Console.WriteLine($"\n\nAre you sure you want to delete following contact? [Y/N] \n{kvp.Key} {kvp.Value.firstName} {kvp.Value.lastName}");
+                string userInput = Console.ReadLine().ToLower();
+                if (userInput == "y") contactBook.DeleteContact(numberToDelete);
+            }
+            else
+            {
+                Console.WriteLine("\nThere is no contact with given number in phone book.");
+            }
         }
 
         public void DisplayAllContacts()
