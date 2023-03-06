@@ -4,6 +4,7 @@
     {
         private ContactValidator contactValidator;
         private ContactBook contactBook;
+
         public OptionController(ContactBook contactBook)
         {
             this.contactBook = contactBook;
@@ -56,6 +57,7 @@
                     Console.WriteLine("Phone number must be in format XXX-XXX-XXX.");
                 }
             }
+
             contactBook.AddContact(newContact);
         }
 
@@ -63,11 +65,13 @@
         {
             Console.WriteLine("Imput number to delete from the book.");
             string numberToDelete = Console.ReadLine() ?? String.Empty;
-            
+
             if (contactBook.contactBookDictionary.ContainsKey(numberToDelete))
             {
-                var kvp = new KeyValuePair<string, Contact>(numberToDelete, contactBook.contactBookDictionary.GetValueOrDefault(numberToDelete));
-                Console.WriteLine($"\n\nAre you sure you want to delete following contact? [Y/N] \n{kvp.Key} {kvp.Value.firstName} {kvp.Value.lastName}");
+                var kvp = new KeyValuePair<string, Contact>(numberToDelete,
+                    contactBook.contactBookDictionary.GetValueOrDefault(numberToDelete));
+                Console.WriteLine(
+                    $"\n\nAre you sure you want to delete following contact? [Y/N] \n{kvp.Key} {kvp.Value.firstName} {kvp.Value.lastName}");
                 string userInput = Console.ReadLine().ToLower();
                 if (userInput == "y") contactBook.DeleteContact(numberToDelete);
             }
@@ -81,7 +85,7 @@
         {
             foreach (KeyValuePair<string, Contact> entry in contactBook.contactBookDictionary)
             {
-                Console.WriteLine($"{ entry.Key} {entry.Value.firstName} {entry.Value.lastName}");
+                Console.WriteLine($"{entry.Key} {entry.Value.firstName} {entry.Value.lastName}");
             }
         }
 
@@ -95,11 +99,14 @@
                 string fullName = entry.Value.firstName + " " + entry.Value.lastName;
 
                 // If full name user input is firstName + lastName it is working, if lastName+firstName isnt. 
-                if (entry.Value.firstName.ToLower().Contains(userInput) | entry.Value.lastName.ToLower().Contains(userInput) | fullName.ToLower().Contains(userInput) | entry.Value.contactNumber == userInput)
+                if (entry.Value.firstName.ToLower().Contains(userInput) |
+                    entry.Value.lastName.ToLower().Contains(userInput) | fullName.ToLower().Contains(userInput) |
+                    entry.Value.contactNumber == userInput)
                 {
                     contactList.Add($"{entry.Key} {entry.Value.firstName} {entry.Value.lastName}");
                 }
             }
+
             if (contactList.Count != 0)
             {
                 Console.WriteLine("\nHere is a list of all contacts matching your request:");
@@ -111,6 +118,28 @@
             else
             {
                 Console.WriteLine("\nThere are no contacts in the phone book that match your request.");
+            }
+        }
+
+        public void EditContact()
+        {
+            Console.WriteLine("Enter a contact number to search for: ");
+            string numberToEdit = Console.ReadLine();
+
+            if (contactBook.contactBookDictionary.ContainsKey(numberToEdit))
+            {
+                Contact contact = contactBook.contactBookDictionary[numberToEdit];
+                Console.WriteLine($"First name: {contact.firstName}");
+                Console.WriteLine($"Last name: {contact.lastName}");
+                Console.WriteLine($"Contact number: {contact.contactNumber}");
+                Console.Write("\n Do you want to edit this contact? [y/n]: ");
+
+                string userInput = Console.ReadLine().ToLower();
+                if (userInput == "y")
+                {
+                    contactBook.DeleteContact(numberToEdit);
+                    AddContact();
+                }
             }
         }
     }

@@ -16,7 +16,8 @@
 
             while (menuControl != true)
             {
-                Console.WriteLine("\n Choose option: \n 1.Add new contact to book. \n 2.Delete contact from book. \n 3.Display all contacts. \n 4.Search for contact.  \n 5.Exit.");
+                Console.WriteLine("\n Choose option: \n 1.Add new contact to book. \n 2.Delete contact from book. " +
+                                  "\n 3.Display all contacts. \n 4.Search for contact. \n 5.Edit existing contact. \n 6.Exit.");
 
                 int menuChoice = 0;
                 int.TryParse(Console.ReadLine(), out menuChoice);
@@ -37,6 +38,9 @@
                         optionController.DisplayByName();
                         break;
                     case 5:
+                        optionController.EditContact();
+                        break;
+                    case 6:
                         fileHandler.saveToFile(phoneBookPatch, dictionary);
                         menuControl = true;
                         break;
